@@ -1,0 +1,27 @@
+info:
+  name: approve_return
+  type: http
+  seq: 8
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/returns/RET-2026-00457/status"
+  auth: inherit
+  body:
+    type: json
+    data: |-
+      {
+        "status": "APPROVED"
+      }
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

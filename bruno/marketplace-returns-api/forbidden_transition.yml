@@ -1,0 +1,27 @@
+info:
+  name: forbidden_transition
+  type: http
+  seq: 10
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/returns/RET-2026-00457/status"
+  auth: inherit
+  body:
+    type: json
+    data: |-
+      {
+        "status": "CLOSED"
+      }
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "409"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

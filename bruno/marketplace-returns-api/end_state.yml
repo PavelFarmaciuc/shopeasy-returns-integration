@@ -1,0 +1,27 @@
+info:
+  name: end_state
+  type: http
+  seq: 11
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/returns/RET-2026-00462/status"
+  auth: inherit
+  body:
+    type: json
+    data: |-
+      {
+        "status": "NEW"
+      }
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "409"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

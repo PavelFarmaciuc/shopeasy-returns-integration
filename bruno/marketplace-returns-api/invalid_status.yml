@@ -1,0 +1,27 @@
+info:
+  name: invalid_status
+  type: http
+  seq: 12
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/returns/RET-2026-00457/status"
+  auth: inherit
+  body:
+    type: json
+    data: |-
+      {
+        "status": "BANANA"
+      }
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "422"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

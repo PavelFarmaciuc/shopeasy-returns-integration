@@ -21,6 +21,7 @@ options; I make the decisions and type the code myself, so I understand every pa
 | 2026-10-28 | 2 | Return status model and allowed transitions | Proposed |
 | 2026-10-28 | 2 | Mock data (returns and orders) | Generated, reviewed |
 | 2026-10-28 | 2 | Data models and status transitions (models.py) | Generated, reviewed |
+| 2026-10-28 | 2 | Bruno test collection (12 requests) | Generated, reviewed |
 
 ## Entries
 
