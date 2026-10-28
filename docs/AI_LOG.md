@@ -20,6 +20,7 @@ options; I make the decisions and type the code myself, so I understand every pa
 | 2026-10-28 | 2 | Tool choice and project setup (Git, venv) | Proposed |
 | 2026-10-28 | 2 | Return status model and allowed transitions | Proposed |
 | 2026-10-28 | 2 | Mock data (returns and orders) | Generated, reviewed |
+| 2026-10-28 | 2 | Data models and status transitions (models.py) | Generated, reviewed |
 
 ## Entries
 
@@ -72,3 +73,10 @@ options; I make the decisions and type the code myself, so I understand every pa
 - **Me:** Typed the first return and order myself to learn the structure; added the rest;
   validated the file with `python3 -m json.tool`.
 - **Learned:** JSON syntax rules; difference between a return and an order.
+
+### 2026-10-28 – Sprint 2: Data models (models.py)
+- **Task:** Describe returns, orders and status rules as Python models.
+- **AI:** Explained classes, type hints, Enums and Pydantic validation; provided the model code.
+- **Me:** Typed the code myself; tested it against the mock data and with an invalid status.
+- **Learned:** How Pydantic validates data automatically; why a fixed list of statuses (Enum)
+  and a transition table protect the API from invalid data.
