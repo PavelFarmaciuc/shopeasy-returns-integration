@@ -1,0 +1,163 @@
+{
+  "returns": [
+    {
+      "returnId": "RET-2026-00457",
+      "orderId": "ORD-2026-118932",
+      "marketplace": "ZALANDO",
+      "status": "NEW",
+      "reason": "SIZE_TOO_SMALL",
+      "reasonText": "Passt leider nicht, eine Nummer kleiner bitte.",
+      "requestedAt": "2026-09-18T09:14:00Z",
+      "updatedAt": "2026-09-18T09:14:00Z",
+      "items": [
+        { "sku": "SH-BLZ-042-M", "productName": "Blazer Slim Fit", "quantity": 1, "unitPrice": 89.90, "currency": "EUR" }
+      ],
+      "customer": { "customerId": "CUST-88213", "email": "j.mueller@example.com" },
+      "returnLabelUrl": null
+    },
+    {
+      "returnId": "RET-2026-00458",
+      "orderId": "ORD-2026-118940",
+      "marketplace": "AMAZON",
+      "status": "NEW",
+      "reason": "DAMAGED_ON_ARRIVAL",
+      "reasonText": "Naht am Ärmel war schon bei Lieferung offen.",
+      "requestedAt": "2026-09-19T14:30:00Z",
+      "updatedAt": "2026-09-19T14:30:00Z",
+      "items": [
+        { "sku": "SH-SWT-008-L", "productName": "Strickpullover Wolle", "quantity": 1, "unitPrice": 59.90, "currency": "EUR" }
+      ],
+      "customer": { "customerId": "CUST-90122", "email": "a.schmidt@example.com" },
+      "returnLabelUrl": null
+    },
+    {
+      "returnId": "RET-2026-00459",
+      "orderId": "ORD-2026-118955",
+      "marketplace": "ZALANDO",
+      "status": "LABEL_SENT",
+      "reason": "NOT_AS_DESCRIBED",
+      "reasonText": "Farbe ist deutlich dunkler als auf dem Foto.",
+      "requestedAt": "2026-09-15T08:05:00Z",
+      "updatedAt": "2026-09-15T08:20:00Z",
+      "items": [
+        { "sku": "SH-DRS-021-S", "productName": "Sommerkleid Leinen", "quantity": 1, "unitPrice": 69.90, "currency": "EUR" }
+      ],
+      "customer": { "customerId": "CUST-77410", "email": "l.weber@example.com" },
+      "returnLabelUrl": "https://labels.example.com/RET-2026-00459.pdf"
+    },
+    {
+      "returnId": "RET-2026-00460",
+      "orderId": "ORD-2026-119002",
+      "marketplace": "AMAZON",
+      "status": "RECEIVED",
+      "reason": "CHANGED_MIND",
+      "reasonText": "Gefällt mir doch nicht.",
+      "requestedAt": "2026-09-10T19:45:00Z",
+      "updatedAt": "2026-09-16T10:12:00Z",
+      "items": [
+        { "sku": "SH-SNK-115-42", "productName": "Sneaker Low Weiß", "quantity": 1, "unitPrice": 79.90, "currency": "EUR" }
+      ],
+      "customer": { "customerId": "CUST-65530", "email": "m.fischer@example.com" },
+      "returnLabelUrl": "https://labels.example.com/RET-2026-00460.pdf"
+    },
+    {
+      "returnId": "RET-2026-00461",
+      "orderId": "ORD-2026-119010",
+      "marketplace": "ZALANDO",
+      "status": "MANUAL_REVIEW",
+      "reason": "SIZE_TOO_LARGE",
+      "reasonText": "Zu groß, Etikett leider schon entfernt.",
+      "requestedAt": "2026-09-08T11:00:00Z",
+      "updatedAt": "2026-09-17T15:40:00Z",
+      "items": [
+        { "sku": "SH-JNS-033-32", "productName": "Jeans Straight Fit", "quantity": 1, "unitPrice": 49.90, "currency": "EUR" }
+      ],
+      "customer": { "customerId": "CUST-88213", "email": "j.mueller@example.com" },
+      "returnLabelUrl": "https://labels.example.com/RET-2026-00461.pdf"
+    },
+    {
+      "returnId": "RET-2026-00462",
+      "orderId": "ORD-2026-119023",
+      "marketplace": "AMAZON",
+      "status": "CLOSED",
+      "reason": "WRONG_ITEM_SENT",
+      "reasonText": "Falsches Modell geliefert.",
+      "requestedAt": "2026-09-01T09:30:00Z",
+      "updatedAt": "2026-09-09T16:00:00Z",
+      "items": [
+        { "sku": "SH-JKT-007-M", "productName": "Regenjacke", "quantity": 1, "unitPrice": 99.90, "currency": "EUR" }
+      ],
+      "customer": { "customerId": "CUST-51207", "email": "t.becker@example.com" },
+      "returnLabelUrl": "https://labels.example.com/RET-2026-00462.pdf"
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "ORD-2026-118932",
+      "marketplace": "ZALANDO",
+      "orderedAt": "2026-09-10T17:42:00Z",
+      "customer": { "customerId": "CUST-88213", "email": "j.mueller@example.com" },
+      "items": [
+        { "sku": "SH-BLZ-042-M", "productName": "Blazer Slim Fit", "quantity": 1, "unitPrice": 89.90, "currency": "EUR" },
+        { "sku": "SH-SHR-017-M", "productName": "Oxford Hemd", "quantity": 1, "unitPrice": 39.90, "currency": "EUR" }
+      ],
+      "totalAmount": 129.80,
+      "currency": "EUR"
+    },
+    {
+      "orderId": "ORD-2026-118940",
+      "marketplace": "AMAZON",
+      "orderedAt": "2026-09-15T12:10:00Z",
+      "customer": { "customerId": "CUST-90122", "email": "a.schmidt@example.com" },
+      "items": [
+        { "sku": "SH-SWT-008-L", "productName": "Strickpullover Wolle", "quantity": 1, "unitPrice": 59.90, "currency": "EUR" }
+      ],
+      "totalAmount": 59.90,
+      "currency": "EUR"
+    },
+    {
+      "orderId": "ORD-2026-118955",
+      "marketplace": "ZALANDO",
+      "orderedAt": "2026-09-11T09:00:00Z",
+      "customer": { "customerId": "CUST-77410", "email": "l.weber@example.com" },
+      "items": [
+        { "sku": "SH-DRS-021-S", "productName": "Sommerkleid Leinen", "quantity": 1, "unitPrice": 69.90, "currency": "EUR" }
+      ],
+      "totalAmount": 69.90,
+      "currency": "EUR"
+    },
+    {
+      "orderId": "ORD-2026-119002",
+      "marketplace": "AMAZON",
+      "orderedAt": "2026-09-05T20:15:00Z",
+      "customer": { "customerId": "CUST-65530", "email": "m.fischer@example.com" },
+      "items": [
+        { "sku": "SH-SNK-115-42", "productName": "Sneaker Low Weiß", "quantity": 1, "unitPrice": 79.90, "currency": "EUR" }
+      ],
+      "totalAmount": 79.90,
+      "currency": "EUR"
+    },
+    {
+      "orderId": "ORD-2026-119010",
+      "marketplace": "ZALANDO",
+      "orderedAt": "2026-09-02T13:25:00Z",
+      "customer": { "customerId": "CUST-88213", "email": "j.mueller@example.com" },
+      "items": [
+        { "sku": "SH-JNS-033-32", "productName": "Jeans Straight Fit", "quantity": 1, "unitPrice": 49.90, "currency": "EUR" }
+      ],
+      "totalAmount": 49.90,
+      "currency": "EUR"
+    },
+    {
+      "orderId": "ORD-2026-119023",
+      "marketplace": "AMAZON",
+      "orderedAt": "2026-08-28T10:00:00Z",
+      "customer": { "customerId": "CUST-51207", "email": "t.becker@example.com" },
+      "items": [
+        { "sku": "SH-JKT-007-M", "productName": "Regenjacke", "quantity": 1, "unitPrice": 99.90, "currency": "EUR" }
+      ],
+      "totalAmount": 99.90,
+      "currency": "EUR"
+    }
+  ]
+}
