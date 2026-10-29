@@ -26,6 +26,9 @@ options; I make the decisions and type the code myself, so I understand every pa
 | 2026-10-29 | 2 | gRPC setup: proto contract and code generation | Proposed |
 | 2026-10-29 | 2 | gRPC server (server.py) with decision rules | Generated, reviewed |
 | 2026-10-29 | 2 | gRPC client (client.py) | Generated |
+| 2026-10-29 | 2 | Messaging concepts and design (topic exchange, DLQ, ack/retry) | Proposed |
+| 2026-10-29 | 2 | Messaging code (common.py, producer.py, status_updater.py, notification.py) | Generated, reviewed |
+| 2026-10-29 | 2 | README (documentation) | Generated, reviewed |
 
 ## Entries
 
@@ -121,3 +124,17 @@ options; I make the decisions and type the code myself, so I understand every pa
   and the expected error codes (INVALID_ARGUMENT, NOT_FOUND, DEADLINE_EXCEEDED, UNAVAILABLE).
 - **Learned:** A gRPC call looks like a local function call because of the generated stub;
   deadlines protect the client against a slow server.
+
+### 2026-10-29 – Sprint 2: Status updates via messaging (RabbitMQ)
+- **Task:** Producer and consumers for return status events via a message broker.
+- **AI:** Explained broker, exchange, queue, binding, routing key, ack/reject/nack, dead-letter
+  queue, at-least-once delivery and idempotency; proposed the design (topic exchange, one queue
+  per consumer, business vs. technical errors); generated the four files one by one and
+  explained each.
+- **Me:** Asked who the consumers are in our business case and worked out examples (ERP,
+  marketplace sync, notifications); chose two consumers to show publish-subscribe; started
+  RabbitMQ in Docker; ran all tests (waiting messages without consumers, full return life
+  cycle, duplicate, dead-letter cases, retry while the API was down).
+- **Learned:** Messaging decouples sender and receiver in time and space; acknowledge only
+  after successful processing; retry technical errors, dead-letter business errors; each
+  consumer must handle duplicates itself.
