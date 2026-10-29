@@ -23,6 +23,9 @@ options; I make the decisions and type the code myself, so I understand every pa
 | 2026-10-28 | 2 | Data models and status transitions (models.py) | Generated, reviewed |
 | 2026-10-28 | 2 | Bruno test collection (12 requests) | Generated, reviewed |
 | 2026-10-29 | 2 | REST client (client.py) | Generated, reviewed |
+| 2026-10-29 | 2 | gRPC setup: proto contract and code generation | Proposed |
+| 2026-10-29 | 2 | gRPC server (server.py) with decision rules | Generated, reviewed |
+| 2026-10-29 | 2 | gRPC client (client.py) | Generated |
 
 ## Entries
 
@@ -97,3 +100,24 @@ options; I make the decisions and type the code myself, so I understand every pa
 - **Learned:** A test tool (Bruno) is for humans, an integration client is for programs and
   must handle errors itself; a central `_request` helper keeps timeout and error handling
   in one place; the client class can be reused by other programs (Program C).
+
+### 2026-10-29 – Sprint 2: gRPC Article Condition Service (server)
+- **Task:** Implement the condition check service from the professor's .proto file.
+- **AI:** Explained RPC, gRPC vs. REST, the .proto contract (services, messages, field numbers,
+  enums), code generation and gRPC status codes; proposed decision rules; provided server.py.
+- **Me:** Asked where gRPC fits in our process until I could explain it (WMS scanner calls a
+  central decision service; reused by batch, audit and later Camunda); approved the decision
+  rules incl. DAMAGED -> MANUAL_REVIEW (possible warranty claim) and the confidence threshold;
+  copied the proto, generated the code and ran the server.
+- **Learned:** Contract-first development; why gRPC suits internal, frequent, strictly typed
+  calls and REST suits external partners; rules as data (dict); all-or-nothing batch validation.
+
+### 2026-10-29 – Sprint 2: gRPC client
+- **Task:** Implement a client that demonstrates all scenarios and error cases.
+- **AI:** Generated client.py at my request and explained how it works in general
+  (channel, stub, deadline, RpcError) by comparing it with the REST client.
+- **Me:** Decided to have this part generated because the client logic was too complex to
+  type myself at this point; ran it and checked every scenario against the decision rules
+  and the expected error codes (INVALID_ARGUMENT, NOT_FOUND, DEADLINE_EXCEEDED, UNAVAILABLE).
+- **Learned:** A gRPC call looks like a local function call because of the generated stub;
+  deadlines protect the client against a slow server.
