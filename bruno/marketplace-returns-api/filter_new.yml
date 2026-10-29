@@ -7,6 +7,9 @@ http:
   method: GET
   url: "{{baseUrl}}/returns?status=NEW"
   auth: inherit
+  headers:
+    - name: X-API-Key
+      value: "{{apiKey}}"
 
 runtime:
   assertions:

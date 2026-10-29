@@ -7,6 +7,9 @@ http:
   method: GET
   url: "{{baseUrl}}/orders/ORD-2026-118932"
   auth: inherit
+  headers:
+    - name: X-API-Key
+      value: "{{apiKey}}"
 
 runtime:
   assertions:

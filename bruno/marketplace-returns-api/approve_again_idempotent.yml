@@ -7,6 +7,9 @@ http:
   method: PATCH
   url: "{{baseUrl}}/returns/RET-2026-00457/status"
   auth: inherit
+  headers:
+    - name: X-API-Key
+      value: "{{apiKey}}"
   body:
     type: json
     data: |-

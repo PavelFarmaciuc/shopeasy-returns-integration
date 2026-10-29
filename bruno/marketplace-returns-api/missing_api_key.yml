@@ -1,0 +1,21 @@
+info:
+  name: missing_api_key
+  type: http
+  seq: 13
+
+http:
+  method: GET
+  url: "{{baseUrl}}/returns"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "401"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
