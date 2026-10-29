@@ -22,6 +22,7 @@ options; I make the decisions and type the code myself, so I understand every pa
 | 2026-10-28 | 2 | Mock data (returns and orders) | Generated, reviewed |
 | 2026-10-28 | 2 | Data models and status transitions (models.py) | Generated, reviewed |
 | 2026-10-28 | 2 | Bruno test collection (12 requests) | Generated, reviewed |
+| 2026-10-29 | 2 | REST client (client.py) | Generated, reviewed |
 
 ## Entries
 
@@ -81,3 +82,18 @@ options; I make the decisions and type the code myself, so I understand every pa
 - **Me:** Typed the code myself; tested it against the mock data and with an invalid status.
 - **Learned:** How Pydantic validates data automatically; why a fixed list of statuses (Enum)
   and a transition table protect the API from invalid data.
+
+### 2026-10-29 – Sprint 2: REST client (client.py)
+- **Task:** Implement a client that queries the marketplace returns API, as required by the
+  assignment.
+- **AI:** Explained why a code client is needed in addition to Bruno (machine-to-machine
+  integration, automatic error handling, reuse by the messaging consumer); explained
+  `requests`, timeouts, exceptions (`raise` / `try/except`), classes with `__init__`/`self`
+  and `if __name__ == "__main__"`; provided the code.
+- **Me:** Asked why a client program is needed if Bruno already sends requests; pasted the
+  code and reviewed it against the explanations; ran the demo scenario (poll NEW returns,
+  load order, approve, forbidden change → 409, unknown return → 404) and tested the
+  behaviour with the server stopped (clear error message instead of a crash).
+- **Learned:** A test tool (Bruno) is for humans, an integration client is for programs and
+  must handle errors itself; a central `_request` helper keeps timeout and error handling
+  in one place; the client class can be reused by other programs (Program C).
