@@ -1,10 +1,13 @@
 # client.py – client for the marketplace returns API (stands in for ShopEasy's integration)
 
 import requests
+import os
+
+import requests
 
 BASE_URL = "http://localhost:8000"
 TIMEOUT_SECONDS = 5
-
+API_KEY = os.environ.get("MARKETPLACE_API_KEY", "dev-secret-key")
 
 class ApiError(Exception):
     """Raised when the API answers with an error status code (4xx or 5xx)."""
@@ -18,13 +21,15 @@ class ApiError(Exception):
 class MarketplaceClient:
     """Wraps the REST API so other programs don't have to deal with HTTP details."""
 
-    def __init__(self, base_url: str = BASE_URL):
+    def __init__(self, base_url: str = BASE_URL, api_key: str = API_KEY):
         self.base_url = base_url
+        self.headers = {"X-API-Key": api_key}
 
     def _request(self, method: str, path: str, **kwargs) -> dict:
         """Send one request; return the JSON body or raise ApiError on an error status."""
         response = requests.request(
-            method, f"{self.base_url}{path}", timeout=TIMEOUT_SECONDS, **kwargs
+            method, f"{self.base_url}{path}",
+            headers=self.headers, timeout=TIMEOUT_SECONDS, **kwargs
         )
         if not response.ok:
             raise ApiError(response.status_code, response.json().get("detail"))
@@ -77,6 +82,12 @@ def main() -> None:
     print("\n5) Asking for a return that does not exist ...")
     try:
         client.get_return("RET-9999")
+    except ApiError as e:
+        print(f"   {e}")
+
+        print("\n6) Calling the API with a wrong API key ...")
+    try:
+        MarketplaceClient(api_key="wrong-key").list_returns()
     except ApiError as e:
         print(f"   {e}")
 

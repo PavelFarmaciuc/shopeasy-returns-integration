@@ -1,11 +1,13 @@
-# main.py – mock REST API simulating the marketplaces (Amazon, Zalando) for return requests
 
 import json
+import os
+import secrets
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Security
+from fastapi.security import APIKeyHeader
 
 from rest_api.models import (
     ALLOWED_TRANSITIONS,
@@ -32,10 +34,25 @@ def load_data() -> tuple[dict[str, Return], dict[str, Order]]:
 # In-memory "database": filled once at startup, reset on every restart
 RETURNS, ORDERS = load_data()
 
+# --- Security: simple API key check -------------------------------------------
+# The key comes from the environment variable MARKETPLACE_API_KEY.
+# The fallback "dev-secret-key" is for local development only.
+API_KEY = os.environ.get("MARKETPLACE_API_KEY", "dev-secret-key")
+
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+
+def verify_api_key(api_key: str | None = Security(api_key_header)) -> None:
+    """Runs before every endpoint: reject requests without a valid API key."""
+    if api_key is None or not secrets.compare_digest(api_key, API_KEY):
+        raise HTTPException(status_code=401, detail="Missing or invalid API key (header X-API-Key)")
+
+
 app = FastAPI(
     title="Marketplace Returns API (Mock)",
     description="Simulates the return interfaces of Amazon and Zalando for ShopEasy GmbH.",
     version="1.0.0",
+    dependencies=[Depends(verify_api_key)],
 )
 
 @app.get("/returns", response_model=ReturnList)
