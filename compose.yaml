@@ -1,0 +1,89 @@
+# compose.yaml – starts the whole ShopEasy integration system with one command:
+#   docker compose up --build
+# Demo programs (producer, clients) run on demand, e.g.:
+#   docker compose run --rm producer
+
+# Shared settings for every container built from our own image (YAML "anchor")
+x-shopeasy-app: &shopeasy-app
+  build: .
+  image: shopeasy-returns
+  environment:
+    MARKETPLACE_API_KEY: ${MARKETPLACE_API_KEY:-dev-secret-key}
+    MARKETPLACE_API_URL: http://rest-api:8000
+    GRPC_SERVER_ADDRESS: grpc-service:50051
+    RABBITMQ_HOST: rabbitmq
+
+services:
+  # --- Message broker (official image) -------------------------------------------
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"      # AMQP for programs
+      - "15672:15672"    # web dashboard
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_port_connectivity"]
+      interval: 5s
+      timeout: 10s
+      retries: 12
+
+  # --- Component A: REST API -----------------------------------------------------
+  rest-api:
+    <<: *shopeasy-app
+    command: ["python", "-m", "uvicorn", "rest_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/openapi.json')"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  # --- Component B: gRPC service -------------------------------------------------
+  grpc-service:
+    <<: *shopeasy-app
+    command: ["python", "-m", "grpc_service.server"]
+    ports:
+      - "50051:50051"
+
+  # --- Component C: consumers (run permanently) ----------------------------------
+  status-updater:
+    <<: *shopeasy-app
+    command: ["python", "-m", "messaging.status_updater"]
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      rest-api:
+        condition: service_healthy
+    restart: on-failure
+
+  notification:
+    <<: *shopeasy-app
+    command: ["python", "-m", "messaging.notification"]
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  # --- Demo programs (profile "demo": not started by "up", only via "run") --------
+  producer:
+    <<: *shopeasy-app
+    command: ["python", "-m", "messaging.producer"]
+    profiles: ["demo"]
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rest-client:
+    <<: *shopeasy-app
+    command: ["python", "-m", "rest_api.client"]
+    profiles: ["demo"]
+    depends_on:
+      rest-api:
+        condition: service_healthy
+
+  grpc-client:
+    <<: *shopeasy-app
+    command: ["python", "-m", "grpc_service.client"]
+    profiles: ["demo"]
+    depends_on:
+      - grpc-service

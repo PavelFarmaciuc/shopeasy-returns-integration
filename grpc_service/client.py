@@ -1,6 +1,7 @@
 # client.py – gRPC client for the Article Condition Service
 # Stands in for the WMS scanner app that sends the recorded condition of a returned article.
 
+import os
 from datetime import datetime, timezone
 
 import grpc
@@ -8,7 +9,7 @@ import grpc
 from grpc_service.generated import article_condition_service_pb2 as pb2
 from grpc_service.generated import article_condition_service_pb2_grpc as pb2_grpc
 
-SERVER_ADDRESS = "localhost:50051"
+SERVER_ADDRESS = os.environ.get("GRPC_SERVER_ADDRESS", "localhost:50051")
 DEADLINE_SECONDS = 2   # max. time we wait for an answer
 
 
